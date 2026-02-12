@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form id="registerForm" class="register-box">
+    <h2>Register</h2>
+    <p class="subtitle">Kindly fill in this form to register.</p>
+
+    <input type="text" id="name" placeholder="First Name" required>
+    <input type="text" id="surname" placeholder="Surname" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="text" id="location" placeholder="Location" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="password" id="confirm" placeholder="Confirm Password" required>
+
+    <button type="submit">Register</button>
+
+    <p class="login-text">
+      Already have an account?
+      <a href="log in.html">Log in</a>
+    </p>
+  </form>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const surname = document.getElementById("surname").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const location = document.getElementById("location").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirm = document.getElementById("confirm").value.trim();
+
+      if (!name || !surname || !email || !location || !password || !confirm) {
+        alert("All fields are required");
+        return;
+      }
+
+      if (password !== confirm) {
+        alert("Passwords do not match");
+        return;
+      }
+
+      fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, surname, email, location, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+
+        if (data.message === "Registered successfully") {
+          window.location.href = "log in.html";
+        }
+      })
+      .catch(() => {
+        alert("Server error");
+      });
+
+    });
+  </script>
+
+</body>
+</html>

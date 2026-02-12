@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Products | Currency Minerals Exchange</title>
+<link rel="stylesheet" href="P.layout.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ================= NAV ================= -->
+<nav>
+    <a href="Homepage.html" class="active">Home</a>
+    <a href="https://form.jotform.com/260416263494054" class="active">Oder Now</a>
+
+    <!-- LOGIN / REGISTER -->
+    <!-- PROFILE -->
+    <span id="profileSection" style="display:none;">
+        <strong id="profileName"></strong>
+        <button onclick="logout()">Logout</button>
+    </span>
+
+    <i class="fas fa-shopping-cart cart-icon"></i>
+</nav>
+
+<!-- ================= HEADER ================= -->
+<header>
+<h1>Currency Exchange Minerals</h1>
+<p>We specialize in Gold, Silver, Copper & Iron</p>
+</header>
+
+<!-- ================= PROFILE CARD ================= -->
+<section id="profileCard" style="display:none; padding:20px; background:#f4f4f4; margin:20px;">
+    <h2>Your Profile</h2>
+
+    <p><strong>Full Name:</strong> <span id="fullName"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>Location:</strong> <span id="location"></span></p>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="minerals">
+
+<div class="card">
+<img src="Gold.jpg" alt=" get a gold with reasonable price">
+
+<h3>Gold</h3>
+</div>
+
+<div class="card">
+<img src="Chromite.jpg">
+<h3>Chromite</h3>
+</div>
+
+<div class="card">
+<img src="chromite ore.jpg">
+<h3>chromite ore</h3>
+</div>
+
+<div class="card">
+<img src="Minerals.jpg">
+<h3></h3>
+</div>
+
+</section>
+<button onclick="openForm()">Oder Now</button>
+
+    <script>
+        function openForm() {
+            window.open("https://form.jotform.com/260416263494054", "_blank");
+        }
+    </script>
+<!-- ================= CALCULATOR ================= -->
+<section class="calculator">
+
+<h2>Mineral Price Calculator</h2>
+
+<label>Select Mineral:</label>
+<select id="mineral">
+<option value="">-- Choose Mineral --</option>
+<option value="Gold">Gold</option>
+<option value="Silver">Silver</option>
+<option value="Copper">Copper</option>
+<option value="Iron">Iron</option>
+</select>
+
+<label>Enter weight (grams):</label>
+<input type="number" id="weight">
+
+<button onclick="calculateMineral()">Calculate Price</button>
+
+<div id="result"></div>
+
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact-section">
+<div class="contact-container">
+
+<div class="contact-box">
+<h2>Currency Minerals Exchange</h2>
+</div>
+
+<div class="contact-box">
+<h3>Contact Us</h3>
+<p>Palmietkuilen 241, Delmas</p>
+<p> Mpumalanga </p>
+<p>Phone: 012 345 6789</p>
+<p>Email: info@ttmineralexchange.co.za</p>
+</div>
+
+</div>
+</section>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+
+const loggedIn = localStorage.getItem("loggedIn");
+
+if (loggedIn === "true") {
+
+    const name = localStorage.getItem("userName");
+    const surname = localStorage.getItem("userSurname");
+    const email = localStorage.getItem("userEmail");
+    const location = localStorage.getItem("userLocation");
+
+    document.getElementById("authLinks").style.display = "none";
+    document.getElementById("profileSection").style.display = "inline";
+
+    document.getElementById("profileName").innerText =
+        name + " " + surname;
+
+    // SHOW PROFILE CARD
+    document.getElementById("profileCard").style.display = "block";
+
+    document.getElementById("fullName").innerText =
+        name + " " + surname;
+
+    document.getElementById("email").innerText = email;
+    document.getElementById("location").innerText = location;
+}
+
+function logout() {
+    localStorage.clear();
+    location.reload();
+}
+
+function calculateMineral() {
+
+    const mineral = document.getElementById("mineral").value;
+    const weight = document.getElementById("weight").value;
+
+    let price = 0;
+
+    if (mineral === "Gold") price = 1200;
+    if (mineral === "chromite") price = 15;
+    if (mineral === "Silver") price = 10;
+    if (mineral === "Iron") price = 5;
+
+    const total = price * weight;
+
+    document.getElementById("result").innerText =
+        "Total Price = R" + total;
+}
+
+</script>
+
+</body>
+</html>
